@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography, Rating } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useParams } from "react-router-dom";
@@ -76,9 +76,12 @@ const ItemDetails = () => {
             <Box>Prev Next</Box>
           </Box>
 
-          <Box m="65px 0 25px 0">
+          <Box m="65px 0 25px 0" display="flex" justifyContent="space-between">
             <Typography variant="h3" fontWeight="bold">{item?.attributes?.name}</Typography>
-            <Typography fontWeight="bold">${item?.attributes?.price}</Typography>
+            <Typography variant="h3" fontWeight="bold">£{item?.attributes?.price}</Typography>
+          </Box>
+          <Box m="25px 0 25px 0">
+            <Rating name="read-only" value={5} readOnly />
             <Typography sx={{ mt: "20px" }}>
               {item?.attributes?.longDescription}
             </Typography>
