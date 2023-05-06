@@ -5,6 +5,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { shades } from "../../theme";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import {categories} from "../../constants/categories";
 
 // imports all images from assets folder
 const importAll = (r) => 
@@ -87,7 +88,7 @@ const MainCarousel = () => {
             margin={isNonMobile ? undefined : "0 auto"}
             maxWidth={isNonMobile ? "300px" : "180px"}
           >
-            <Typography variant="h1">Hello, spring</Typography>
+            <Typography variant="h1">{categories[index].title}</Typography>
 
             <Box
                 color="black"
