@@ -53,11 +53,11 @@ export const theme = createTheme({
         fontFamily: ["Fauna One", "sans-serif"].join(","),
         fontSize: 11,
         h1: {
-            fontFamily: ["Raleway","Cabin","Cinzel", "sans-serif"].join(","),
+            fontFamily: ["Raleway","sans-serif"].join(","),
             fontSize: 48,
         },
         h2: {
-            fontFamily: ["Raleway","Cabin","Cinzel", "sans-serif"].join(","),
+            fontFamily: ["Instrument Serif", "sans-serif"].join(","),
             fontSize: 36,
         },
         h3: {

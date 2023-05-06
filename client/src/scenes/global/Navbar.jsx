@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {Badge, Box, IconButton} from "@mui/material";
+import {Badge, Box, IconButton, Typography} from "@mui/material";
 import {
     PersonOutline,
     ShoppingBagOutlined,
@@ -38,9 +38,9 @@ const Navbar = () => {
             <Box
                 onClick={() => navigate("/")}
                 sx={{'&:hover': {cursor: "pointer"}}}
-                color={shades.secondary[500]}
+                color={shades.primary[500]}
             >
-                ECOMMERCE
+                <Typography variant="h2">MyFashion</Typography>
             </Box>
 
             <Box

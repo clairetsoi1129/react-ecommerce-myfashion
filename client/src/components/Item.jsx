@@ -7,7 +7,7 @@ import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
-const Item = ({ item, width }) => {
+const Item = ({ item, width, showAddToBag }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
@@ -36,12 +36,13 @@ const Item = ({ item, width }) => {
       >
         <img
           alt={item.name}
-          width="300px"
-          height="400px"
+          width="200px"
+          height="300px"
           src={`${process.env.REACT_APP_BACKEND_BASE_URL}${url}`}
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
+        {showAddToBag && 
         <Box
           display={isHovered ? "block" : "none"}
           position="absolute"
@@ -57,6 +58,7 @@ const Item = ({ item, width }) => {
               backgroundColor={shades.neutral[100]}
               borderRadius="3px"
             >
+              
               <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
                 <RemoveIcon />
               </IconButton>
@@ -71,10 +73,11 @@ const Item = ({ item, width }) => {
               }}
               sx={{ backgroundColor: shades.primary[300], color: "white" }}
             >
-              Add to Cart
+              Add to Bag
             </Button>
           </Box>
         </Box>
+        }
       </Box>
 
       <Box mt="3px">
