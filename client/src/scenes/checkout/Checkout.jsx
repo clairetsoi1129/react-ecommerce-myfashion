@@ -41,13 +41,13 @@ const Checkout = () => {
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       email: values.email,
-      products: cart.map(({ id, count }) => ({
-        id,
+      products: cart.map(({ count, ...item }) => ({
         count,
+        ...item,
       })),
     };
 
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/orders`, {
+    const response = await fetch(`${process.env.REACT_APP_NODEJS_BASE_URL}/api/v1/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
