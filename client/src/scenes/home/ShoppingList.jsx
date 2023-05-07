@@ -30,7 +30,6 @@ const ShoppingList = () => {
       const itemsQuery = `*[_type == "product"]`;
       const itemsData = await client.fetch(itemsQuery)
                         .then((data) => {
-                          console.log(data);
                           dispatch(setItems(data));
                         })
                         .catch((error) => {

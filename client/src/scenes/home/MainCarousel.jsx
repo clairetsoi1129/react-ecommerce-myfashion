@@ -19,11 +19,9 @@ const MainCarousel = () => {
     const itemsQuery = `*[_type == "banner"]`;
     const itemsData = await client.fetch(itemsQuery)
                       .then((data) => {
-                        console.log(data);
                         setHeroBanners(data);
                       })
                       .catch((error) => {
-                        console.log(error);
                         setHeroBanners(heroBannersData);
                       });
   }

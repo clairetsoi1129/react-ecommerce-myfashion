@@ -12,6 +12,7 @@ import {
   setIsCartOpen,
 } from "../../state";
 import { useNavigate } from "react-router-dom";
+import {client, urlFor} from "../../lib/client";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -26,7 +27,7 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
-    return total + item.count * item.attributes.price;
+    return total + item.count * item.price;
   }, 0);
 
   return (
@@ -61,30 +62,31 @@ const CartMenu = () => {
           {/* CART LIST */}
           <Box>
             {cart.map((item) => (
-              <Box key={`${item.attributes.name}-${item.id}`}>
+              <Box key={`${item?.name}-${item?.id}`}>
                 <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
                       alt={item?.name}
                       width="123px"
                       height="164px"
-                      src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                      src={item?.image && urlFor(item?.image[0]).url()}
+                      // src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
                     />
                   </Box>
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
                       <Typography fontWeight="bold">
-                        {item.attributes.name}
+                        {item?.name}
                       </Typography>
                       <IconButton
                         onClick={() =>
-                          dispatch(removeFromCart({ id: item.id }))
+                          dispatch(removeFromCart({ id: item?.id }))
                         }
                       >
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography>{item.attributes.shortDescription}</Typography>
+                    {/* <Typography>{item.hortDescription}</Typography> */}
                     <FlexBox m="15px 0">
                       <Box
                         display="flex"
@@ -108,7 +110,7 @@ const CartMenu = () => {
                         </IconButton>
                       </Box>
                       <Typography fontWeight="bold">
-                      £{item.attributes.price}
+                      £{item.price}
                       </Typography>
                     </FlexBox>
                   </Box>

@@ -19,8 +19,6 @@ const Item = ({ item, width, showAddToBag }) => {
 
   const { category, price, name, image } = item;
 
-  console.log(image);
-
   return (
     <Box width={width}>
       <Box
@@ -63,7 +61,7 @@ const Item = ({ item, width, showAddToBag }) => {
             </Box>
             <Button
               onClick={() => {
-                dispatch(addToCart({ item: { ...item, count } }));
+                dispatch(addToCart({ item: { ...item[0], count } }));
               }}
               sx={{ backgroundColor: shades.primary[300], color: "white" }}
             >

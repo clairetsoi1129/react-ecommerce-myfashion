@@ -54,7 +54,6 @@ const ItemDetails = () => {
     const itemQuery = `*[_type == "product" && id == ${itemId}]`;
     const itemData = await client.fetch(itemQuery)
                       .then((data) => {
-                        console.log(data);
                         setItem(data);
                       })
                       .catch((error) => {
@@ -66,7 +65,6 @@ const ItemDetails = () => {
     const itemsQuery = `*[_type == "product" && id != ${itemId}]`;
     const itemsData = await client.fetch(itemsQuery)
                       .then((data) => {
-                        console.log(data);
                         setItems(data);
                       })
                       .catch((error) => {
@@ -150,7 +148,7 @@ const ItemDetails = () => {
                 minWidth: "150px",
                 padding: "10px 40px",
               }}
-              onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
+              onClick={() => dispatch(addToCart({ item: { ...item[0], count } }))}
             >
               ADD TO BAG
             </Button>
@@ -160,7 +158,11 @@ const ItemDetails = () => {
               <FavoriteBorderOutlinedIcon />
               <Typography sx={{ ml: "5px" }}>ADD TO WISHLIST</Typography>
             </Box>
-            <Typography>CATEGORIES: { item?.category}</Typography>
+            <Typography>CATEGORIES: 
+              { item[0]?.category && item[0]?.category
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            </Typography>
           </Box>
 
           {/* RELATED ITEMS */}

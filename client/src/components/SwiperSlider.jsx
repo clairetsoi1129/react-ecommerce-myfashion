@@ -40,7 +40,7 @@ export const SwiperSlider = ({items}) => {
         modules={[Keyboard, Scrollbar, Navigation, Pagination]}
         className="mySwiper"
       >
-console.log(items);
+
         {items?.length > 0 && items.map((item, i) => (    
 
      
