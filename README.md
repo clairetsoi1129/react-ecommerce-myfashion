@@ -3,14 +3,15 @@ It is a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payme
 
 Demo site:  https://myfashion-frontend.onrender.com/
 
-## How to start backend (Sanity+Stripe)
+## Tech stack
+React.js, Material UI, Node.js, Express.js, Stripe Payment Platform, Sanity Content Management
+
+## How to start Sanity
 ```
 npm create sanity@latest -- --template clean --create-project "Sanity Project" --dataset production
-
-npm install stripe
 npm run develop
 ```
-### How to start nodejs backend (Sanity+Stripe)
+### How to start backend (nodejs)
 ```
 npm init -y
 npm install cors dotenv express mongoose nodemon
@@ -30,9 +31,31 @@ npm run start
 ```
 
 ## How to deploy Sanity
+1. run command in sanity directory
 ```
 sanity deploy
 ```
+2. input the studio name
+3. after the frontend deployed, add the hostname to cors with credential
+
+## How to deploy backend to render
+1. click new web service
+2. select the project in github
+3. input the name, eg. myfashion-backend
+4. input branch in github
+5. input the backend directory for root directory, eg. backend
+6. input the build command, eg. npm install
+7. input the start command, eg. npm run start
+
+## How to deploy frontend (react js app) to render
+1. click new static site
+2. select the project in github
+3. input the name, eg. myfashion-frontend
+4. input branch in github
+5. input the backend directory for root directory, eg. client
+6. input the build command, eg. npm run build
+7. input the publish directory, eg. build
+8. add the rewrite rules, source: /*, destination: /index.html, action: Rewrite
 
 ## Google Font
 https://fonts.google.com/specimen/Fauna+One?query=Fauna+One
@@ -49,4 +72,5 @@ https://www.sanity.io/guides/create-a-single-page-application-with-react-and-san
 2. Add checking of product price with backend db
 3. Add myFavourite function
 4. Add input review function
+5. Add swiperslider on "You may also like" and "Complete the look" section
 ```
