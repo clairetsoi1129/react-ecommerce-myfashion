@@ -41,7 +41,7 @@ function Footer() {
 
         <Box width="clamp(20%, 22%, 25%)">
           <Typography variant="h4" fontWeight="bold" mb="20px">
-            More From Abc
+            More From MyFashion
           </Typography>
           <Typography mb="10px">Store locator</Typography>
           <Typography mb="10px">Facebook</Typography>

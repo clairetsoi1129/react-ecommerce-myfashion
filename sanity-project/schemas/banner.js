@@ -12,49 +12,19 @@ export default {
             },
         },
         {
-            name: 'buttonText',
-            title: 'ButtonText',
+            name: 'title',
+            title: 'Title',
             type: 'string',
         },
         {
-            name: 'product',
-            title: 'Product',
+            name: 'action',
+            title: 'Action',
             type: 'string',
         },
         {
-            name: 'desc',
-            title: 'Desc',
+            name: 'filter',
+            title: 'Filter',
             type: 'string',
-        },
-        {
-            name: 'smallText',
-            title: 'SmallText',
-            type: 'string',
-        },
-        {
-            name: 'midText',
-            title: 'MidText',
-            type: 'string',
-        },
-        {
-            name: 'largeText1',
-            title: 'LargeText1',
-            type: 'string',
-        },
-        {
-            name: 'largeText2',
-            title: 'LargeText2',
-            type: 'string',
-        },
-        {
-            name: 'discount',
-            title: 'Discount',
-            type: 'string',
-        },
-        {
-            name: 'saleTime',
-            title: 'SaleTime',
-            type: 'string',
-        },
+        }
     ],
   };

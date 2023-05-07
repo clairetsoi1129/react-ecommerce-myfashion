@@ -5,25 +5,40 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { shades } from "../../theme";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {categories} from "../../constants/categories";
+import React, { useState, useEffect } from "react";
+import {client, urlFor} from "../../lib/client";
+import {heroBannersData} from "../../constants/heroBannersData";
 
-// imports all images from assets folder
-const importAll = (r) => 
-// {
-//     return r.keys().map(r);
-// }
-  r.keys().reduce((acc, item) => {
-    acc[item.replace("./", "")] = r(item);
-    return acc;
-  }, {});
-
-
-export const heroTextureImports = importAll(
-  require.context("../../assets", false, /\.(png|jpe?g|svg)$/)
-);
 
 const MainCarousel = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const isSanity = (process.env.REACT_APP_CONTENT_MANGEMENT_TOOL === "Sanity");
+  console.log(isSanity);
+
+  const [heroBanners, setHeroBanners] = useState(null);
+
+  useEffect(() => {
+    if (isSanity) {
+      const bannerQuery = '*[_type == "banner"]';
+      // const bannerData = await client.fetch(bannerQuery);
+
+      client
+        .fetch(bannerQuery)
+        .then((data) => {
+          console.log(data);
+          setHeroBanners(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    else {
+      setHeroBanners(heroBannersData);
+    } 
+  }, []);
+
+  console.log(heroBannersData);
   return (
     <Carousel
       infiniteLoop={true}
@@ -61,10 +76,10 @@ const MainCarousel = () => {
         </IconButton>
       )}
     >
-      {Object.values(heroTextureImports).map((texture, index) => (
+      {heroBanners && heroBanners.map((heroBanner, index) => (
         <Box key={`carousel-image-${index}`}>
           <img
-            src={texture}
+            src={isSanity? urlFor(heroBanner.image):heroBanner.image }
             alt={`carousel-${index}`}
             style={{
               width: "100%",
@@ -88,7 +103,7 @@ const MainCarousel = () => {
             margin={isNonMobile ? undefined : "0 auto"}
             maxWidth={isNonMobile ? "300px" : "180px"}
           >
-            <Typography variant="h1">{categories[index].title}</Typography>
+            <Typography variant="h1">{heroBanner.title}</Typography>
 
             <Box
                 color="black"
@@ -102,7 +117,7 @@ const MainCarousel = () => {
                 margin={isNonMobile ? undefined : "0 auto"}
                 maxWidth={isNonMobile ? "200px" : "150px"}
             >
-                <Typography component="span" variant="h3" fontWeight="bold" >Shop new in </Typography>
+                <Typography component="span" variant="h3" fontWeight="bold" >{heroBanner.action}</Typography>
                 <IconButton
                 
                     sx={{
