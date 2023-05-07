@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, Rating } from "@mui/material";
+import { Box, Button, IconButton, Typography, Rating, Stack } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useParams } from "react-router-dom";
@@ -22,6 +22,7 @@ const ItemDetails = () => {
   const [count, setCount] = useState(1);
   const [item, setItem] = useState([]);
   const [items, setItems] = useState([]);
+  const [index, setIndex] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,12 +86,26 @@ const ItemDetails = () => {
       <Box display="flex" flexWrap="wrap" columnGap="40px">
         {/* IMAGES */}
         <Box flex="1 1 40%" mb="40px" justifyContent="top">
+        <Stack>
           <ImageMagnifier
             alt={item[0]?.name}
             width="90%"
-            src={item[0]?.image && urlFor(item[0]?.image[0])}
+            src={item[0]?.image && urlFor(item[0]?.image[index])}
             style={{ objectFit: "contain" }}
           />
+        </Stack>
+        <Stack direction="row" spacing={0.5}>
+          {item[0]?.image?.map((itemImgs, i) => (
+                <img 
+                  key={i}
+                  alt={itemImgs}
+                  src={urlFor(itemImgs)}
+                  className={i === index ? 'small-image selected-image' : 'small-image'}
+                  onMouseEnter={() => setIndex(i)}
+                />
+              ))}
+        </Stack>
+
         </Box>
 
         {/* ACTIONS */}
