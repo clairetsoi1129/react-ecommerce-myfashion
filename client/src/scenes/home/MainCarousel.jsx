@@ -13,32 +13,25 @@ import {heroBannersData} from "../../constants/heroBannersData";
 const MainCarousel = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const isSanity = (process.env.REACT_APP_CONTENT_MANGEMENT_TOOL === "Sanity");
-  console.log(isSanity);
-
   const [heroBanners, setHeroBanners] = useState(null);
 
-  useEffect(() => {
-    if (isSanity) {
-      const bannerQuery = '*[_type == "banner"]';
-      // const bannerData = await client.fetch(bannerQuery);
+  async function getBannersFromSanity() {
+    const itemsQuery = `*[_type == "banner"]`;
+    const itemsData = await client.fetch(itemsQuery)
+                      .then((data) => {
+                        console.log(data);
+                        setHeroBanners(data);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                        setHeroBanners(heroBannersData);
+                      });
+  }
 
-      client
-        .fetch(bannerQuery)
-        .then((data) => {
-          console.log(data);
-          setHeroBanners(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    else {
-      setHeroBanners(heroBannersData);
-    } 
+  useEffect(() => {
+    getBannersFromSanity();
   }, []);
 
-  console.log(heroBannersData);
   return (
     <Carousel
       infiniteLoop={true}
@@ -79,7 +72,7 @@ const MainCarousel = () => {
       {heroBanners && heroBanners.map((heroBanner, index) => (
         <Box key={`carousel-image-${index}`}>
           <img
-            src={isSanity? urlFor(heroBanner.image):heroBanner.image }
+            src={urlFor(heroBanner.image).url()}
             alt={`carousel-${index}`}
             style={{
               width: "100%",

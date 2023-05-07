@@ -4,6 +4,11 @@ export default {
     type: 'document',
     fields: [
       {
+        name: 'id',
+        title: 'Id',
+        type: 'number',
+      },
+      {
         name: 'image',
         title: 'Image',
         type: 'array',
@@ -32,8 +37,13 @@ export default {
         type: 'number',
       },
       { 
-        name: 'details',
-        title: 'Details',
+        name: 'longDescription',
+        title: 'Long Description',
+        type: 'string',
+      },
+      {
+        name: 'category',
+        title: 'Category',
         type: 'string',
       }
     ]

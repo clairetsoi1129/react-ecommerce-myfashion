@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Stack, Box, Typography, Tab, Tabs, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import {setItems} from '../../state';
+import {client, urlFor} from "../../lib/client";
 
 const ShoppingList = () => {
     const dispatch = useDispatch();
@@ -25,20 +26,33 @@ const ShoppingList = () => {
 
     }
 
+    async function getItemsFromSanity() {
+      const itemsQuery = `*[_type == "product"]`;
+      const itemsData = await client.fetch(itemsQuery)
+                        .then((data) => {
+                          console.log(data);
+                          dispatch(setItems(data));
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+  
+    }
+
     useEffect(()=>{
-      getItems();
+      getItemsFromSanity();
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const topRatedItems = items.filter(
-      (item) => item.attributes.category === "topRated"
+      (item) => item.category === "topRated"
     );
 
     const newArrivalsItems = items.filter(
-      (item) => item.attributes.category === "newArrivals"
+      (item) => item.category === "newArrivals"
     );
 
     const bestSellersItems = items.filter(
-      (item) => item.attributes.category === "bestSellers"
+      (item) => item.category === "bestSellers"
     );
     
 

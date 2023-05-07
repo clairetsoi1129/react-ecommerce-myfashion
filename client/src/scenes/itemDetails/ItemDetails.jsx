@@ -12,13 +12,15 @@ import { addToCart } from "../../state";
 import { useDispatch } from "react-redux";
 import {ImageMagnifier} from "../../components/ImageMagnifier";
 import {SwiperSlider} from "../../components/SwiperSlider";
+import {client, urlFor} from "../../lib/client";
+
 
 const ItemDetails = () => {
   const dispatch = useDispatch();
   const { itemId } = useParams();
   const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
-  const [item, setItem] = useState(null);
+  const [item, setItem] = useState([]);
   const [items, setItems] = useState([]);
 
   const handleChange = (event, newValue) => {
@@ -32,39 +34,61 @@ const ItemDetails = () => {
         method: "GET",
       }
     );
-    console.log(item);
     const itemJson = await item.json();
     setItem(itemJson.data);
   }
 
   async function getItemsExcludeThisItem() {
-   
     const items = await fetch(
       `${process.env.REACT_APP_BACKEND_BASE_URL}/api/items?filters[id][$ne]=${itemId}&populate=image`,
       {
         method: "GET",
       }
     );
-    console.log(items);
     const itemsJson = await items.json();
-    console.log(itemsJson.data);
     setItems(itemsJson.data);
   }
 
+  async function getItemFromSanity() {
+    const itemQuery = `*[_type == "product" && id == ${itemId}]`;
+    const itemData = await client.fetch(itemQuery)
+                      .then((data) => {
+                        console.log(data);
+                        setItem(data);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+  }
+
+  async function getItemsExcludeThisItemFromSanity() {
+    const itemsQuery = `*[_type == "product" && id != ${itemId}]`;
+    const itemsData = await client.fetch(itemsQuery)
+                      .then((data) => {
+                        console.log(data);
+                        setItems(data);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+
+  }
+
   useEffect(() => {
-    getItem();
-    getItemsExcludeThisItem();
+      getItemFromSanity();
+      getItemsExcludeThisItemFromSanity();
   }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  
   return (
     <Box width="80%" m="80px auto">
       <Box display="flex" flexWrap="wrap" columnGap="40px">
         {/* IMAGES */}
         <Box flex="1 1 40%" mb="40px" justifyContent="top">
           <ImageMagnifier
-            alt={item?.name}
+            alt={item[0]?.name}
             width="90%"
-            src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={item[0]?.image && urlFor(item[0]?.image[0])}
             style={{ objectFit: "contain" }}
           />
         </Box>
@@ -77,13 +101,13 @@ const ItemDetails = () => {
           </Box>
 
           <Box m="65px 0 25px 0" display="flex" justifyContent="space-between">
-            <Typography variant="h3" fontWeight="bold">{item?.attributes?.name}</Typography>
-            <Typography variant="h3" fontWeight="bold">£{item?.attributes?.price}</Typography>
+            <Typography variant="h3" fontWeight="bold">{item[0]?.name}</Typography>
+            <Typography variant="h3" fontWeight="bold">£{item[0]?.price}</Typography>
           </Box>
           <Box m="25px 0 25px 0">
             <Rating name="read-only" value={5} readOnly />
             <Typography sx={{ mt: "20px" }}>
-              {item?.attributes?.longDescription}
+            {item[0]?.longDescription}
             </Typography>
           </Box>
 
@@ -121,7 +145,7 @@ const ItemDetails = () => {
               <FavoriteBorderOutlinedIcon />
               <Typography sx={{ ml: "5px" }}>ADD TO WISHLIST</Typography>
             </Box>
-            <Typography>CATEGORIES: {item?.attributes?.category}</Typography>
+            <Typography>CATEGORIES: { item?.category}</Typography>
           </Box>
 
           {/* RELATED ITEMS */}
@@ -133,10 +157,10 @@ const ItemDetails = () => {
               mt="20px"
               display="flex"
               flexWrap="wrap"
-              columnGap="1%"
+              columnGap="0%"
               justifyContent="space-between"
             >
-              {items.slice(0, 3).map((item, i) => (
+              {items && items.slice(0, 3).map((item, i) => (
 
                 <Item key={`${item.name}-${i}`} item={item} showAddToBag={false} />
               ))}
@@ -152,10 +176,10 @@ const ItemDetails = () => {
               mt="20px"
               display="flex"
               flexWrap="wrap"
-              columnGap="1%"
+              columnGap="0%"
               justifyContent="space-between"
             >
-              {items.slice(0, 3).map((item, i) => (
+              {items && items.slice(0, 3).map((item, i) => (
                 <Item key={`${item.name}-${i}`} item={item} showAddToBag={false} />
               ))}
             </Box>
@@ -172,7 +196,7 @@ const ItemDetails = () => {
       </Box>
       <Box display="flex" flexWrap="wrap" gap="15px">
         {value === "description" && (
-          <div>{item?.attributes?.longDescription}</div>
+          <div>{item[0]?.longDescription}</div>
         )}
         {value === "reviews" && <div>reviews</div>}
       </Box>
