@@ -1,5 +1,7 @@
 ## Introduction
-It is a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment. It used Sanity as the Content Mangement System to store the product data. 
+It is a FULLSTACK React Ecommerce App that is fully Responsive with Stripe for Payment, Sanity as the Content Mangement System to manage the product data. 
+
+It contains several features. In the home page, it has a Carousel to show different banners. In the item details page, the main image has magnified view when user mouse over on it. And user can also select the small images under main image to show it in the main image box. User can add the item to the shopping cart and go to checkout. The checkout contains of 2 steps forms to gather user contact info. And then it will redirect to Stripe to collect the payment. If payment success, it will redirect back to the success page to show the confirmation.
 
 Demo site:  https://myfashion-frontend.onrender.com/
 
@@ -73,4 +75,5 @@ https://www.sanity.io/guides/create-a-single-page-application-with-react-and-san
 3. Add myFavourite function
 4. Add input review function
 5. Add swiperslider on "You may also like" and "Complete the look" section
+6. Add link to the carousel
 ```
