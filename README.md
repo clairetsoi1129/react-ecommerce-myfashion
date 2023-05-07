@@ -1,18 +1,7 @@
 ## Introduction
-It is a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment. It used Sanity to work as Content Mangement System to store the product data. 
+It is a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment. It used Sanity as the Content Mangement System to store the product data. 
 
-
-
-
-
-## How to start backend (Strapi+Stripe)
-```
-npx create-strapi-app@latest server
-
-cd server
-npm install stripe
-npm run develop
-```
+Demo site:  https://myfashion-frontend.onrender.com/
 
 ## How to start backend (Sanity+Stripe)
 ```
@@ -35,19 +24,14 @@ npx create-react-app client
 npm install @mui/material @emotion/react @emotion/styled @mui/icons-material react-router-dom@6 react-redux @reduxjs/toolkit formik yup dotenv react-responsive-carousel
 npm install swiper
 npm install @stripe/react-stripe-js @stripe/stripe-js
+npm install @sanity/client @sanity/image-url
 
 npm run start
-```
-
-## How to start frontend with sanity
-```
-npm install @sanity/client @sanity/image-url
 ```
 
 ## How to deploy Sanity
 ```
 sanity deploy
-> myFashion
 ```
 
 ## Google Font
@@ -61,7 +45,8 @@ https://www.sanity.io/guides/create-a-single-page-application-with-react-and-san
 
 ## Future thoughts
 ```
-1. Add checking of product price with backend db
-2. Add myFavourite function
-3. Add input review function
+1. Fix bugs on adding duplicate item
+2. Add checking of product price with backend db
+3. Add myFavourite function
+4. Add input review function
 ```
