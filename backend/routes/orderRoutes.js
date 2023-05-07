@@ -2,19 +2,10 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import Stripe from 'stripe';
 
-// const sanityClient = require('@sanity/client');
-
 dotenv.config();
 
 const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
-// const sanityClient = sanityClient({
-//     projectId: 'obv0yatn',
-//     dataset: 'production',
-//     apiVersion: '2023-05-06',
-//     useCdn: true,
-//     token: process.env.REACT_APP_PUBLIC_SANITY_TOKEN
-//   });
 
 const router = express.Router();
 
@@ -22,14 +13,6 @@ router.route('/').post(async (req, res) => {
     if (req.method === 'POST') {
         console.log(req.body);
         try {
-            // const itemsQuery = `*[_type == "product"]`;
-            // const sanityData = await sanityClient.fetch(itemsQuery)
-            //             .then((data) => {
-            //               dispatch(setItems(data));
-            //             })
-            //             .catch((error) => {
-            //               console.log(error);
-            //             });
             const params = {
                 submit_type: 'pay',
                 mode: 'payment',
@@ -40,8 +23,6 @@ router.route('/').post(async (req, res) => {
                 // ],
                 line_items: req.body.products.map((item) => {
                     const img = item.image[0].asset._ref;
-                    // const newImage = img.replace('image-', 'https://cdn.sanity.io/images/vfxfwnaw/production/').replace('-webp', '.webp');
-        
                     return {
                         price_data: { 
                             currency: 'gbp',
