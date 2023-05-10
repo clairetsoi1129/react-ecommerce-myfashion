@@ -15,17 +15,6 @@ const ShoppingList = () => {
         setValue(newValue);
     };
 
-    async function getItems() {
-        const items = await fetch(
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/api/items?populate=image`, 
-          {method: "GET"}
-        );
-
-        const itemsJson = await items.json();
-        dispatch(setItems(itemsJson.data));
-
-    }
-
     async function getItemsFromSanity() {
       const itemsQuery = `*[_type == "product"]`;
       const itemsData = await client.fetch(itemsQuery)

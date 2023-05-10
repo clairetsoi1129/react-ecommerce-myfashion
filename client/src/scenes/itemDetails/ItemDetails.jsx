@@ -28,28 +28,6 @@ const ItemDetails = () => {
     setValue(newValue);
   };
 
-  async function getItem() {
-    const item = await fetch(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}/api/items/${itemId}?populate=image`,
-      {
-        method: "GET",
-      }
-    );
-    const itemJson = await item.json();
-    setItem(itemJson.data);
-  }
-
-  async function getItemsExcludeThisItem() {
-    const items = await fetch(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}/api/items?filters[id][$ne]=${itemId}&populate=image`,
-      {
-        method: "GET",
-      }
-    );
-    const itemsJson = await items.json();
-    setItems(itemsJson.data);
-  }
-
   async function getItemFromSanity() {
     const itemQuery = `*[_type == "product" && id == ${itemId}]`;
     const itemData = await client.fetch(itemQuery)
