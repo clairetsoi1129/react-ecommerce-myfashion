@@ -206,6 +206,9 @@ npm run start
 ```
 
 # Reference
+## Build a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment
+https://www.youtube.com/watch?v=EBCdyQ_HFMo
+
 ## Google Font
 https://fonts.google.com/specimen/Fauna+One?query=Fauna+One
 
@@ -214,4 +217,5 @@ https://dev.to/anxiny/create-an-image-magnifier-with-react-3fd7
 
 ## Sanity with react
 https://www.sanity.io/guides/create-a-single-page-application-with-react-and-sanity
+
 
