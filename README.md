@@ -205,11 +205,10 @@ npm install @sanity/client @sanity/image-url
 npm run start
 ```
 
-## Acknowledgements
-### Build a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment
+## Reference
+### Build a FULLSTACK React Ecommerce App that is fully Responsive with Stripe Payment from EdRoh
 https://www.youtube.com/watch?v=EBCdyQ_HFMo
 
-## Reference
 ### Google Font
 https://fonts.google.com/specimen/Fauna+One?query=Fauna+One
 
